@@ -16,9 +16,44 @@ export default function LineChart() {
             backgroundColor: '#bbf7d0',
         }]
     }
+    const options = {
+        plugins: {
+            legend: {
+                labels: {
+                    color: '#1f2937',
+                    font: {
+                        weight: 'bold',
+                        size: 14,
+                    },
+                },
+            },
+            title: {
+                display: false,
+            },
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: '#1f2937',
+                    font: {
+                        weight: '500',
+                    },
+                },
+            },
+            y: {
+                ticks: {
+                    color: '#1f2937',
+                    font: {
+                        weight: '500',
+                    },
+                },
+            },
+        },
+        responsive: true,
+    }
     return (
         <div className="bg-green-200 flex flex-col items-center justify-center">
-            <Line data={lineChartData} />
+            <Line data={lineChartData} options={options} />
         </div>
     )
 }
