@@ -1,3 +1,7 @@
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
+
 import BarChart from "./ChartComponents/BarChart";
 import LineChart from "./ChartComponents/LineChart";
 import LiveTable from "./ChartComponents/LiveTable";
