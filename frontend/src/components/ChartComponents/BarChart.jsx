@@ -49,6 +49,7 @@ export default function BarChart() {
                 },
             },
         },
+        responsive: true,
     }
     return (
         <div className="bg-pink-200 flex flex-col items-center justify-center">
