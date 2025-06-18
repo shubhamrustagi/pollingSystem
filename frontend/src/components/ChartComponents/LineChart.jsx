@@ -53,6 +53,7 @@ export default function LineChart() {
     }
     return (
         <div className="bg-green-200 flex flex-col items-center justify-center">
+            <h2 className="text-lg font-semibold mb-2">Daywise Results</h2>
             <Line data={lineChartData} options={options} />
         </div>
     )
