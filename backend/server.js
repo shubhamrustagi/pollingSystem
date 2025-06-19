@@ -1,5 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import voteRoutes from './routes/votesRoutes.js'
+import analysisRoutes from './routes/analysisRoutes.js'
 
 dotenv.config();
 
