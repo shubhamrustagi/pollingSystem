@@ -1,16 +1,36 @@
 import { useState } from "react";
-
+import { checkNameExists, submitVote } from "../../services/voteServices";
 export default function LeftSection() {
 
     const [name, setName] = useState("");
     const [voteValue, setVoteValue] = useState(null);
 
 
-    function handleSubmit(e) {
-        e.preventDefault()
+    async function handleSubmit(e) {
+        e.preventDefault();
 
-        console.log("Username: ", name);
-        console.log("Vote: ", voteValue);
+        if (!name || voteValue === null) {
+            alert("Please enter name and select a vote.");
+            return;
+        }
+
+        try {
+            const exists = await checkNameExists(name);
+            if (exists) {
+                alert("This name has already submitted a vote.");
+                return;
+            }
+
+            await submitVote(name, voteValue === 'true');
+            alert("Vote submitted successfully!");
+            setName("");
+            setVoteValue(null);
+
+
+        } catch (err) {
+            console.error("Vote submission failed:", err);
+            alert("Something went wrong.");
+        }
     }
     return (
         <>
