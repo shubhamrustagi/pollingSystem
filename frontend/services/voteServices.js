@@ -7,3 +7,11 @@ export async function fetchVotes() {
     console.log('Fetched from API:', result.voteEntries);
     return result.voteEntries;
 }
+
+export async function fetchSummary() {
+    const res = await fetch(`${BASE_URL}/analysis/summary`);
+    if (!res.ok) throw new Error('Failed to fetch summary');
+    const result = await res.json();
+    console.log('Fetched from API:', result.data);
+    return result.data; 
+  }

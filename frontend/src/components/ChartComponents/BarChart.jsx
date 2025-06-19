@@ -1,17 +1,30 @@
 import { Bar } from 'react-chartjs-2'
-
+import { useState, useEffect } from 'react';
+import { fetchSummary } from '../../../services/voteServices';
 export default function BarChart() {
+
+    const [summary, setSummary] = useState({ yes: 0, no: 0 });
+
+    useEffect(() => {
+        fetchSummary()
+            .then(setSummary)
+            .catch((err) => {
+                console.error('Failed to fetch summary:', err);
+            });
+    }, []);
+
+
     const barChartData = {
         labels: ['Yes', 'No'],
         datasets: [
             {
                 label: 'Yes',
-                data: [10, 0],
+                data: [summary.yes, 0],
                 backgroundColor: '#22c55e',
             },
             {
                 label: 'No',
-                data: [0, 7],
+                data: [0, summary.no],
                 backgroundColor: '#ef4444',
             },
         ],
