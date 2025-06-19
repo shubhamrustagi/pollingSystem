@@ -1,7 +1,7 @@
 import { Line } from 'react-chartjs-2'
 import { useState, useEffect } from 'react';
 import { fetchTrends } from '../../../services/voteServices';
-export default function LineChart() {
+export default function LineChart({ reload }) {
 
 
     const [labels, setLabels] = useState([]);
@@ -33,7 +33,7 @@ export default function LineChart() {
                 setNoCounts(no);
             })
             .catch((err) => console.error('Failed to fetch trends:', err));
-    }, []);
+    }, [reload]);
 
 
     const lineChartData = {

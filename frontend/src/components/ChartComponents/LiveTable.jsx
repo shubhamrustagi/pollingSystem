@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchVotes } from "../../../services/voteServices";
-export default function LiveTable() {
+export default function LiveTable({ reload }) {
     const [votes, setVotes] = useState([]);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ export default function LiveTable() {
             .catch((err) => {
                 console.error("Failed to fetch votes:", err);
             });
-    }, []);
+    }, [reload]);
 
     return (
         <div className="bg-purple-400 col-span-2 flex flex-col items-center justify-center">

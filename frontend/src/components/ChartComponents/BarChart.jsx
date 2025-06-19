@@ -1,7 +1,7 @@
 import { Bar } from 'react-chartjs-2'
 import { useState, useEffect } from 'react';
 import { fetchSummary } from '../../../services/voteServices';
-export default function BarChart() {
+export default function BarChart({ reload }) {
 
     const [summary, setSummary] = useState({ yes: 0, no: 0 });
 
@@ -11,7 +11,7 @@ export default function BarChart() {
             .catch((err) => {
                 console.error('Failed to fetch summary:', err);
             });
-    }, []);
+    }, [reload]);
 
 
     const barChartData = {

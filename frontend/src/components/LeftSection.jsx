@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { checkNameExists, submitVote } from "../../services/voteServices";
-export default function LeftSection() {
+export default function LeftSection({ onVoteSubmitted }) {
 
     const [name, setName] = useState("");
     const [voteValue, setVoteValue] = useState(null);
@@ -22,7 +22,9 @@ export default function LeftSection() {
             }
 
             await submitVote(name, voteValue === 'true');
+            if (onVoteSubmitted) onVoteSubmitted();
             alert("Vote submitted successfully!");
+            document.getElementById('userForm').reset()
             setName("");
             setVoteValue(null);
 
@@ -35,7 +37,7 @@ export default function LeftSection() {
     return (
         <>
             <div className='w-1/2 bg-amber-200 flex flex-col items-center justify-center'>
-                <form className='flex flex-col' onSubmit={handleSubmit}>
+                <form id="userForm" className='flex flex-col' onSubmit={handleSubmit}>
                     <label className="text-lg font-medium text-gray-700">Please enter your name</label>
                     <input
                         type="text"
