@@ -41,14 +41,22 @@ export default function LineChart({ reload }) {
         datasets: [{
             label: 'Yes votes',
             data: yesCounts,
-            borderColor: '#22c55e',
-            backgroundColor: '#bbf7d0',
+            borderColor: '#ef4444',
+            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+            tension: 0.4,
+            fill: false,
+            borderWidth: 2,
+            pointRadius: 4,
         },
         {
             label: 'No votes',
             data: noCounts,
-            borderColor: '#c34447',
-            backgroundColor: '#bbf7d0',
+            borderColor: '#22c55e',
+            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+            tension: 0.4,
+            fill: false,
+            borderWidth: 2,
+            pointRadius: 4,
         }]
     }
     const options = {

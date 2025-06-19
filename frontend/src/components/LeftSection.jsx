@@ -36,7 +36,9 @@ export default function LeftSection({ onVoteSubmitted }) {
     }
     return (
         <>
-            <div className='w-1/2 bg-amber-200 flex flex-col items-center justify-center'>
+
+            <div className='w-1/2 bg-amber-200 flex flex-col items-center justify-center h-screen'>
+
                 <form id="userForm" className='flex flex-col' onSubmit={handleSubmit}>
                     <label className="text-lg font-medium text-gray-700">Please enter your name</label>
                     <input
