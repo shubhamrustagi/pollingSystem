@@ -1,5 +1,15 @@
 import prisma from '../db.js'
-
+export const checkNameExists = async (req, res) => {
+    const { name } = req.query;
+    if (!name) return res.status(400).json({ error: 'Missing name' });
+  
+    const result = await prisma.$queryRaw`
+      SELECT COUNT(*) as count FROM Vote WHERE name = ${name}
+    `;
+    const exists = result[0].count > 0;
+  
+    res.json({ exists });
+}
 export const createVoteEntry = async (req,res) => {
     const {name,choice} = req.body
     if (typeof name !== 'string' || typeof choice !== 'boolean') {
