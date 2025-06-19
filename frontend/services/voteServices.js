@@ -14,4 +14,10 @@ export async function fetchSummary() {
     const result = await res.json();
     console.log('Fetched from API:', result.data);
     return result.data; 
-  }
+}
+
+export async function fetchTrends() {
+    const res = await fetch(`${BASE_URL}/analysis/trends`);
+    if (!res.ok) throw new Error('Failed to fetch trends');
+    return await res.json(); 
+}

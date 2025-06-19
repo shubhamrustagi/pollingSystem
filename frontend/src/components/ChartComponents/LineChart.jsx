@@ -1,17 +1,52 @@
 import { Line } from 'react-chartjs-2'
-
+import { useState, useEffect } from 'react';
+import { fetchTrends } from '../../../services/voteServices';
 export default function LineChart() {
+
+
+    const [labels, setLabels] = useState([]);
+    const [yesCounts, setYesCounts] = useState([]);
+    const [noCounts, setNoCounts] = useState([]);
+
+    useEffect(() => {
+        fetchTrends()
+            .then(({ yes_votes, no_votes }) => {
+
+                const allDatesSet = new Set([
+                    ...yes_votes.map((v) => v.date),
+                    ...no_votes.map((v) => v.date),
+                ]);
+                const allDates = Array.from(allDatesSet).sort();
+
+
+                const yesMap = new Map(yes_votes.map((v) => [v.date, v.count]));
+                const noMap = new Map(no_votes.map((v) => [v.date, v.count]));
+
+
+                const yes = allDates.map((date) => yesMap.get(date) || 0);
+                const no = allDates.map((date) => noMap.get(date) || 0);
+
+                setLabels(allDates.map((d) =>
+                    new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                ));
+                setYesCounts(yes);
+                setNoCounts(no);
+            })
+            .catch((err) => console.error('Failed to fetch trends:', err));
+    }, []);
+
+
     const lineChartData = {
-        labels: ['15 June 2025', '16 June 2025', '17 June 2025'],
+        labels,
         datasets: [{
             label: 'Yes votes',
-            data: [2, 4, 5],
+            data: yesCounts,
             borderColor: '#22c55e',
             backgroundColor: '#bbf7d0',
         },
         {
             label: 'No votes',
-            data: [4, 1, 4],
+            data: noCounts,
             borderColor: '#c34447',
             backgroundColor: '#bbf7d0',
         }]
