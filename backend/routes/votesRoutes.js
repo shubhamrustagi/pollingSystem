@@ -1,8 +1,7 @@
 import express from 'express'
-
 const router = express.Router();
 router.post('/',(req,res)=>{
-    res.status(200).send("Everything is working fine for post api votes call")
+    res.status(200).send("everything is working fine for post api votes call")
 })
 
 router.get('/',(req,res)=>{
