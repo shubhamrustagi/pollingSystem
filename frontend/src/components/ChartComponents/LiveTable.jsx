@@ -1,13 +1,19 @@
+import { useState, useEffect } from "react";
+import { fetchVotes } from "../../../services/voteServices";
 export default function LiveTable() {
-    const dummyVotes = [
-        { name: 'Alice', vote: 'Yes', timeOfSubmission: '10:00 AM' },
-        { name: 'Bob', vote: 'No', timeOfSubmission: '10:05 AM' },
-        { name: 'Charlie', vote: 'Yes', timeOfSubmission: '10:10 AM' },
-        { name: 'Dave', vote: 'No', timeOfSubmission: '10:15 AM' },
-        { name: 'Eve', vote: 'Yes', timeOfSubmission: '10:20 AM' },
-        { name: 'Frank', vote: 'No', timeOfSubmission: '10:25 AM' },
-        { name: 'Grace', vote: 'Yes', timeOfSubmission: '10:30 AM' },
-    ]
+    const [votes, setVotes] = useState([]);
+
+    useEffect(() => {
+        fetchVotes()
+            .then((data) => {
+                console.log("Fetched votes from backend:", data);
+                setVotes(data);
+            })
+            .catch((err) => {
+                console.error("Failed to fetch votes:", err);
+            });
+    }, []);
+
     return (
         <div className="bg-purple-400 col-span-2 flex flex-col items-center justify-center">
             <h2 className="text-lg font-semibold mb-2 text-center text-gray-700">Live Vote Table</h2>
@@ -22,11 +28,11 @@ export default function LiveTable() {
                     </thead>
                     <tbody>
                         {
-                            dummyVotes.map((vote) => (
-                                <tr className="border-t even:bg-white odd:bg-gray-500">
+                            votes.map((vote, i) => (
+                                <tr key={i} className="border-t even:bg-white odd:bg-gray-500">
                                     <td className="px-4 py-2">{vote.name}</td>
-                                    <td className="px-4 py-2">{vote.vote}</td>
-                                    <td className="px-4 py-2">{vote.timeOfSubmission}</td>
+                                    <td className="px-4 py-2">{vote.choice ? 'Yes' : 'No'}</td>
+                                    <td className="px-4 py-2">{new Date(vote.castedAt).toLocaleString()}</td>
                                 </tr>
                             ))
                         }

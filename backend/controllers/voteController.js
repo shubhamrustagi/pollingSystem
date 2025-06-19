@@ -4,7 +4,7 @@ export const checkNameExists = async (req, res) => {
     if (!name) return res.status(400).json({ error: 'Missing name' });
   
     const result = await prisma.$queryRaw`
-      SELECT COUNT(*) as count FROM Vote WHERE name = ${name}
+      SELECT COUNT(*) as count FROM Votes WHERE name = ${name}
     `;
     const exists = result[0].count > 0;
   
