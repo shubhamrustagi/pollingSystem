@@ -9,3 +9,11 @@ export const createVoteEntry = async (req,res) => {
     const vote = await prisma.votes.create({ data: { name, choice } });
     res.status(201).json({ data: vote });
 }
+
+export const getVoteEntries = async (req,res) =>{
+    const voteEntries = await prisma.votes.findMany({
+        orderBy: {castedAt: "desc"}
+    });
+
+    res.status(200).json({voteEntries})
+}
