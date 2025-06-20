@@ -42,6 +42,7 @@ npx vitest
 - [Vitest Documentation](https://vitest.dev/)
 - [Prisma Documentation](https://www.prisma.io/docs)
 - [Javascript mastery (for integration and in between query solving)](https://www.youtube.com/@javascriptmastery)
+- [MDN docs](https://developer.mozilla.org/en-US/)
 
 ## Documentation
 
