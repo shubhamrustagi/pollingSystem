@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, test, expect } from 'vitest';
 import LeftSection from '../LeftSection';
 
 describe('LeftSection form validations', () => {
@@ -14,8 +15,14 @@ describe('LeftSection form validations', () => {
         render(<LeftSection />);
         const nameInput = screen.getByPlaceholderText(/username/i);
         fireEvent.change(nameInput, { target: { value: 'TestUser' } });
+        const yesRadio = screen.getByDisplayValue('true');
+        const noRadio = screen.getByDisplayValue('false');
+        expect(yesRadio.checked).toBe(false);
+        expect(noRadio.checked).toBe(false);
         const button = screen.getByText(/click to enter your vote/i);
         fireEvent.click(button);
-        expect(screen.getByPlaceholderText(/username/i).value).toBe('TestUser');
+
+        expect(yesRadio.checked).toBe(false);
+        expect(noRadio.checked).toBe(false);
     });
 });

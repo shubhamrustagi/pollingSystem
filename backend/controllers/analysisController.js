@@ -8,27 +8,23 @@ export const getVoteSummary = async (req, res) => {
 }
 
 export const getVoteTrends = async (req, res) => {
-    const yesVotesRaw = await prisma.votes.findMany({
-      where: { choice: true },
-      select: { castedAt: true }
-    });
   
-    const noVotesRaw = await prisma.votes.findMany({
-      where: { choice: false },
-      select: { castedAt: true }
-    });
-  
-    const format = (arr) => {
-      const grouped = {};
-      for (const { castedAt } of arr) {
-        const date = castedAt.toISOString().slice(0, 10);
-        grouped[date] = (grouped[date] || 0) + 1;
-      }
-      return Object.entries(grouped).map(([date, count]) => ({ date, count }));
-    };
-  
+    const yes = await prisma.$queryRaw `SELECT DATE(castedAt) as "date",count(*) as "count" FROM votes WHERE choice = true GROUP BY DATE(castedAt); `
+    const no = await prisma.$queryRaw `SELECT DATE(castedAt) as "date",count(*) as "count" FROM votes WHERE choice = false GROUP BY DATE(castedAt); `
+
+    const yes_votes = yes.map(y => ({
+      date:y.date,
+      count: Number(y.count)
+    }))
+
+    const no_votes = no.map(n => ({
+      date:n.date,
+      count:Number(n.count),
+    }))
+    
+    
+    
     res.json({
-      yes_votes: format(yesVotesRaw),
-      no_votes: format(noVotesRaw)
+      yes_votes,no_votes
     });
   };
