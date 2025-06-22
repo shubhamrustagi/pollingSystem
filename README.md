@@ -1,4 +1,4 @@
-# Polling System Assignment
+# Polling System 
 
 A voting system where you can vote and see all the previous votes' data through charts 
 
